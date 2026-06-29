@@ -1,0 +1,34 @@
+version: 1.2.1
+
+endpoints:
+  custom:
+    - name: "AINative"
+      apiKey: "${AINATIVE_API_KEY}"
+      baseURL: "https://openrouter.ai/api/v1/"
+      models:
+        default: ["openrouter/free"]
+        fetch: true
+      titleConvo: true
+      titleModel: "current_model"
+      modelDisplayLabel: "AINative"
+
+mcpServers:
+  clickhouse:
+    type: stdio
+    command: uvx
+    args:
+      - mcp-clickhouse
+    env:
+      CLICKHOUSE_HOST: clickhouse
+      CLICKHOUSE_PORT: "8123"
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: changeme
+      CLICKHOUSE_DATABASE: streamkit
+      CLICKHOUSE_SECURE: "false"
+      CLICKHOUSE_VERIFY: "false"
+      CLICKHOUSE_READONLY: "true"
+
+interface:
+  mcpServers:
+    use: true
+    create: false
